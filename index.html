@@ -670,7 +670,10 @@
         If we miss anything included in your package, Don't Pay Until it is Fixed. NO HASSLE!!.
        </p>
       </div>
-      <form class="space-y-4 text-sm" id="booking-form">
+      <form class="space-y-4 text-sm" id="booking-form" action="https://api.web3forms.com/submit" method="POST" autocomplete="on">
+        <!-- Honeypot field for spam protection (less obvious name, disables autofill) -->
+        <input type="text" name="booking_code" style="display:none" tabindex="-1" autocomplete="nope">
+       <input type="hidden" name="access_key" value="d1405cab-29fe-4505-9faf-cdee8115ba63" />
        <div>
         <label class="block text-xs mb-1 text-gray-300">
          Preferred Date
@@ -971,6 +974,8 @@
          <button class="inline-flex items-center justify-center px-5 py-2.5 rounded-full bg-yellow-400 text-black text-sm font-bold hover:bg-yellow-500 transition-colors shadow-lg" type="submit">
           Confirm Booking
          </button>
+         <input type="hidden" name="redirect" value="https://excalibur.shine/thank-you.html" />
+         <input type="hidden" name="subject" value="New Booking Request from Excalibur Mobile Landing" />
         </div>
         <p class="text-[11px] text-gray-300" id="discount-note">
          Select 2 cars to apply a 15% discount on the second vehicle.
@@ -978,6 +983,7 @@
        </div>
        <p class="text-[11px] text-gray-500">
         Confirmation text sent to your number.
+        <span class="block text-xs text-green-400 mt-2" id="web3forms-success" style="display:none;">Thank you! Your booking was submitted.</span>
        </p>
       </form>
      </div>
@@ -1217,9 +1223,12 @@
     window.selectPackage = selectPackage;
 
     document.getElementById("booking-form").addEventListener("submit", function(e) {
-      e.preventDefault();
-      if (!document.getElementById("time").value) { alert("Please select a time slot."); return; }
-      alert("Booking received! A confirmation text will be sent to your mobile.");
+      if (!document.getElementById("time").value) {
+        e.preventDefault();
+        alert("Please select a time slot.");
+        return;
+      }
+      // Let the form submit normally to Web3Forms
     });
 
     const observer = new IntersectionObserver(entries => {
