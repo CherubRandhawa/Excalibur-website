@@ -1229,14 +1229,22 @@
     }
     window.selectPackage = selectPackage;
 
+    function trackBookingConversion() {
+      if (typeof gtag === 'function') {
+        gtag('event', 'conversion', {
+          'send_to': 'AW-18189548007/bWNqCMfYt7YcEOfzueFD'
+        });
+      }
+    }
+
     document.getElementById("booking-form").addEventListener("submit", function(e) {
       if (!document.getElementById("time").value) {
         e.preventDefault();
         alert("Please select a time slot.");
         return;
       }
-      if (window.gtag) {
-        gtag('event', 'conversion', {'send_to': 'AW-18189548007/bWNqCMfYt7YcEOfzueFD'});
+      if (typeof trackBookingConversion === 'function') {
+        trackBookingConversion();
       }
       // Let the form submit normally to Web3Forms
     });
