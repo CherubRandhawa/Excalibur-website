@@ -6,6 +6,13 @@
   <title>
    Excalibur Mobile Detailing
   </title>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18189548007"></script>
+  <script>
+   window.dataLayer = window.dataLayer || [];
+   function gtag(){dataLayer.push(arguments);}
+   gtag('js', new Date());
+   gtag('config', 'AW-18189548007');
+  </script>
   <script src="https://cdn.tailwindcss.com">
   </script>
   <link href="https://fonts.googleapis.com" rel="preconnect"/>
@@ -1227,6 +1234,9 @@
         e.preventDefault();
         alert("Please select a time slot.");
         return;
+      }
+      if (window.gtag) {
+        gtag('event', 'conversion', {'send_to': 'AW-18189548007/bWNqCMfYt7YcEOfzueFD'});
       }
       // Let the form submit normally to Web3Forms
     });
